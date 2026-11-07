@@ -6,18 +6,29 @@
   <title>Azim Pizza — пицца ручной работы</title>
   <meta name="description" content="Пицца ручной работы от Азима: тесто 24 часа, соус каждое утро, печь на дровах. Соберите свою пиццу в 3D." />
   <meta name="theme-color" content="#120e0c" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="img/logo-mark.svg" />
+  <meta property="og:image" content="img/azim-chef.jpg" />
+  <link rel="preload" as="image" href="img/azim-chef.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <script type="importmap">
     { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
   </script>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="slice" viewBox="0 0 64 64">
+      <g transform="rotate(-16 32 34)">
+        <path d="M9 17 Q32 6 55 17 L32 60 Z" fill="#ffc94a" stroke="#f0861f" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M7 16 Q32 2 57 16" fill="none" stroke="#e5571a" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="24" cy="25" r="5" fill="#e0322a"/><circle cx="40" cy="26" r="4.5" fill="#e0322a"/><circle cx="32" cy="41" r="4" fill="#e0322a"/>
+      </g>
+    </symbol>
+  </svg>
   <header class="nav">
-    <a class="logo" href="#top"><span class="logo-mark">A</span><span>AZIM<b>PIZZA</b></span></a>
+    <a class="brand" href="#top" aria-label="Azim Pizza"><svg class="brand-slice" aria-hidden="true"><use href="#slice"/></svg><span class="brand-word"><span class="b-azim">Azim</span> <span class="b-pizza">Pizza</span></span></a>
     <nav class="nav-links">
       <a href="#anatomy">Анатомия</a>
       <a href="#fresh">Свежесть</a>
@@ -30,17 +41,44 @@
     </button>
   </header>
 
+  <!-- 0. ТИТУЛЬНАЯ: Азим у печи -->
+  <section class="front" id="top">
+    <div class="front-photo">
+      <img src="img/azim-chef.jpg" srcset="img/azim-chef-sm.jpg 600w, img/azim-chef.jpg 1100w" sizes="(max-width: 760px) 100vw, 46vw" alt="Азим в фартуке Azim Pizza держит пиццу у печи на дровах" fetchpriority="high" />
+    </div>
+    <div class="front-copy">
+      <div class="brand-big" aria-hidden="true">
+        <svg class="brand-slice"><use href="#slice"/></svg>
+        <span class="b-azim">Azim</span>
+        <span class="b-pizza">Pizza</span>
+      </div>
+      <p class="eyebrow"><span class="dot"></span> Hand made · печь на дровах</p>
+      <h1>Пицца, которую Азим делает руками</h1>
+      <p class="lead">Тесто зреет 24 часа, соус варим каждое утро, печём на дровах. Каждую пиццу делаем под заказ.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#menu">Выбрать пиццу</a>
+        <a class="btn btn-ghost" href="#builder">Собрать свою в 3D</a>
+      </div>
+      <ul class="front-stats">
+        <li><b>24 ч</b><span>тесто зреет</span></li>
+        <li><b>400°C</b><span>печь на дровах</span></li>
+        <li><b>≈ 3 мин</b><span>в печи</span></li>
+      </ul>
+    </div>
+    <a class="front-down" href="#anatomy" aria-label="Дальше">↓</a>
+  </section>
+
   <!-- 1. АНАТОМИЯ: 3D-пицца в разобранном виде, собирается при скролле и запекается -->
   <section id="anatomy" class="anatomy" aria-label="Анатомия пиццы">
-    <div class="sticky" id="top">
+    <div class="sticky">
       <canvas id="heroCanvas" class="hero-canvas"></canvas>
       <svg class="leaders" id="leaders"></svg>
       <div class="labels" id="labels"></div>
       <div class="oven-glow" id="ovenGlow"></div>
 
       <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span> Hand made · печь на дровах</p>
-        <h1>Пицца, <br />которую <em>Азим</em><br />делает руками</h1>
+        <p class="eyebrow"><span class="dot"></span> 8 слоёв · 3D-анатомия</p>
+        <h2 class="hero-title">Анатомия<br />пиццы <em>Азима</em></h2>
         <div class="steps">
           <div class="step" data-step="0">
             <span class="step-num">01 / Анатомия</span>
@@ -189,7 +227,7 @@
   </section>
 
   <footer class="footer">
-    <div class="logo"><span class="logo-mark">A</span><span>AZIM<b>PIZZA</b></span></div>
+    <a class="brand" href="#top" aria-label="Azim Pizza"><svg class="brand-slice" aria-hidden="true"><use href="#slice"/></svg><span class="brand-word"><span class="b-azim">Azim</span> <span class="b-pizza">Pizza</span></span></a>
     <p>Пиццу печёт Азим, руками и на дровах. Пишите в WhatsApp, всё готовим под заказ.</p>
     <p class="muted small">© <span id="year"></span> Azim Pizza</p>
   </footer>
