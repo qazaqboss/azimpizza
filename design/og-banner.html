@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Unbounded:wght@700;900&family=Manrope:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0}
+.og{position:relative;width:1200px;height:630px;overflow:hidden;background:#120e0c;color:#f6ecde;font-family:Manrope}
+.og::before{content:'';position:absolute;inset:0;background:radial-gradient(700px 500px at 72% 60%,rgba(255,106,43,.35),transparent 70%),radial-gradient(500px 400px at 0% 100%,rgba(201,48,31,.25),transparent 70%)}
+.photo{position:absolute;right:0;top:0;bottom:0;width:600px;background:url(../img/azim-chef.jpg) 50% 38%/cover}
+.photo::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#120e0c 0%,rgba(18,14,12,.85) 14%,rgba(18,14,12,0) 45%),linear-gradient(0deg,rgba(18,14,12,.55),transparent 30%)}
+.copy{position:absolute;left:64px;top:56px;bottom:56px;width:660px;display:flex;flex-direction:column;justify-content:center}
+.brand{display:flex;align-items:flex-end;gap:10px;font-family:'Kaushan Script';line-height:.85;margin-bottom:26px}
+.brand svg{width:104px;height:104px;filter:drop-shadow(0 6px 18px rgba(255,106,43,.5));margin-bottom:6px}
+.a{font-size:118px}.p{font-size:118px;color:#ef3b2d}
+h1{white-space:nowrap;font-family:Unbounded;font-weight:900;font-size:44px;line-height:1.05;margin:0 0 18px;letter-spacing:-.01em}
+h1 em{font-style:normal;color:#ff6a2b}
+.chips{display:flex;gap:12px;margin-bottom:30px}
+.chip{padding:10px 16px;border-radius:99px;border:1px solid rgba(255,232,205,.18);background:rgba(255,255,255,.05);font-weight:700;font-size:19px}
+.chip b{color:#ffb347;font-family:Unbounded;font-size:17px;margin-right:6px}
+.cta{align-self:flex-start;padding:16px 26px;border-radius:99px;background:#ff6a2b;color:#1c0d05;font-weight:800;font-size:21px;box-shadow:0 12px 34px rgba(255,106,43,.45)}
+.stamp{position:absolute;right:36px;bottom:34px;font-family:Unbounded;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#ffd7b0;background:rgba(18,14,12,.6);padding:9px 14px;border-radius:99px;border:1px solid rgba(255,179,71,.35)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">    <symbol id="slice" viewBox="0 0 64 64">
+      <g transform="rotate(-16 32 34)">
+        <path d="M9 17 Q32 6 55 17 L32 60 Z" fill="#ffc94a" stroke="#f0861f" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M7 16 Q32 2 57 16" fill="none" stroke="#e5571a" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="24" cy="25" r="5" fill="#e0322a"/><circle cx="40" cy="26" r="4.5" fill="#e0322a"/><circle cx="32" cy="41" r="4" fill="#e0322a"/>
+      </g>
+    </symbol></svg>
+<div class="og" id="og">
+  <div class="photo"></div>
+  <div class="copy">
+    <div class="brand"><svg><use href="#slice"/></svg><span class="a">Azim</span><span class="p">Pizza</span></div>
+    <h1>Пицца ручной работы<br>из <em>печи на дровах</em></h1>
+    <div class="chips"><span class="chip"><b>24 ч</b>тесто</span><span class="chip"><b>400°C</b>печь</span><span class="chip"><b>3 мин</b>и готово</span></div>
+    <div class="cta">Меню и 3D-конструктор пиццы →</div>
+  </div>
+  <div class="stamp">🔥 Hand made</div>
+</div></body></html>
