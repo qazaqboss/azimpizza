@@ -20,6 +20,6 @@ ES-модулям нужен веб-сервер, просто открыть ф
 python3 -m http.server 8000
 # открыть http://localhost:8000
 ```
-Можно выложить на GitHub Pages: Settings → Pages → Deploy from branch.
+Сайт опубликован на Vercel: https://azimpizza.vercel.app/ (адрес указан в мета-тегах баннера в `index.html`).
 
 Three.js r160 лежит в `vendor/three` (лицензия MIT).
