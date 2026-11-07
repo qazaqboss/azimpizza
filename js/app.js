@@ -66,10 +66,6 @@ function initHero() {
   window.addEventListener('scroll', readScroll, { passive: true });
   readScroll();
 
-  stage.onResize = (w, h) => {
-    if (isNarrow()) stage.camera.setViewOffset(w, h, 0, h * 0.17, w, h);
-    else stage.camera.setViewOffset(w, h, -w * 0.14, 0, w, h);
-  };
 
   stage.onFrame((dt) => {
     smoothP = lerp(smoothP, progress, 1 - Math.pow(0.001, dt));
@@ -77,7 +73,7 @@ function initHero() {
     const e = 1 - smooth(0.1, 0.58, p);       // насколько разобрана
     const b = smooth(0.66, 0.94, p);          // насколько испечена
     const narrow = isNarrow();
-    const s = narrow ? 0.66 : 1;
+    const s = narrow ? 0.56 : 1;
 
     pizza.state.explode = e;
     pizza.setBake(b);
@@ -89,10 +85,13 @@ function initHero() {
     stage.ground.position.y = -0.02 - 3.2 * e * s;
 
     // камера: сбоку для анатомии → сверху для готовой пиццы
-    camA.set(0, 2.4, 15.5); camB.set(0, 8.6, 8.4);
+    camA.set(0, 3.0, 17); camB.set(0, 8.6, 8.4);
     stage.camera.position.lerpVectors(camA, camB, 1 - e);
-    if (narrow) stage.camera.position.multiplyScalar(1.05);
-    tgt.set(0, lerp(0.15, -0.4, 1 - e), 0);
+    if (narrow) stage.camera.position.multiplyScalar(1.05 + 0.3 * (1 - e));
+    const W0 = stage.size.w, H0 = stage.size.h;
+    if (narrow) stage.camera.setViewOffset(W0, H0, W0 * 0.17 * e, H0 * 0.2, W0, H0);
+    else stage.camera.setViewOffset(W0, H0, -W0 * 0.14, 0, W0, H0);
+    tgt.set(0, lerp(0.95, -0.4, 1 - e), 0);
     stage.camera.lookAt(tgt);
     stage.camera.updateMatrixWorld();
 
@@ -119,7 +118,7 @@ function initHero() {
       const edge = new THREE.Vector3(3.15 * s, y * s, 0).project(stage.camera);
       return { it, x: (v.x + 1) / 2 * W, y: (1 - v.y) / 2 * H, ex: (edge.x + 1) / 2 * W };
     });
-    const col = Math.min(W - (narrow ? 96 : 210), Math.max(...pts.map((q) => q.ex)) + (narrow ? 14 : 44));
+    const col = Math.min(W - (narrow ? 138 : 210), Math.max(...pts.map((q) => q.ex)) + (narrow ? 14 : 44));
     for (const q of pts) {
       q.it.el.style.transform = `translate(${col.toFixed(1)}px, ${(q.y - 16).toFixed(1)}px)`;
       q.it.line.setAttribute('x1', q.x); q.it.line.setAttribute('y1', q.y);
