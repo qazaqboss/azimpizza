@@ -20,6 +20,7 @@ body {
   margin: 0; background: var(--bg); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.55;
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
+html, body { overflow-x: clip; max-width: 100%; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
@@ -154,6 +155,7 @@ button { font: inherit; color: inherit; }
 .menu-card .open { margin-top: 14px; font-weight: 700; color: var(--accent); font-size: 14px; }
 
 /* Конструктор */
+.builder-wrap > * { min-width: 0; }
 .builder-wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
 .stage-col { position: sticky; top: 84px; }
 .stage {
@@ -190,7 +192,8 @@ button { font: inherit; color: inherit; }
 .base-item { padding: 12px; border-radius: 14px; background: var(--card); border: 1px dashed var(--line); font-size: 13px; }
 .base-item b { display: block; font-size: 14px; }
 .base-item span { color: var(--green); font-size: 12px; font-weight: 600; }
-.toppings { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.toppings { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr)); gap: 10px; }
+.top-btn, .top-btn > span { min-width: 0; }
 .top-btn {
   position: relative; display: grid; grid-template-columns: 48px 1fr; gap: 10px; align-items: center; text-align: left;
   padding: 10px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); cursor: pointer; transition: border-color 0.2s, background 0.2s, transform 0.15s;
