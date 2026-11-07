@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Azim Pizza — пицца ручной работы</title>
+  <meta name="description" content="Пицца ручной работы от Азима: тесто 24 часа, соус каждое утро, печь на дровах. Соберите свою пиццу в 3D." />
+  <meta name="theme-color" content="#120e0c" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="#top"><span class="logo-mark">A</span><span>AZIM<b>PIZZA</b></span></a>
+    <nav class="nav-links">
+      <a href="#anatomy">Анатомия</a>
+      <a href="#fresh">Свежесть</a>
+      <a href="#menu">Меню</a>
+      <a href="#builder">Конструктор</a>
+    </nav>
+    <button class="cart-btn" id="cartOpen" aria-label="Корзина">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+      <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <!-- 1. АНАТОМИЯ: 3D-пицца в разобранном виде, собирается при скролле и запекается -->
+  <section id="anatomy" class="anatomy" aria-label="Анатомия пиццы">
+    <div class="sticky" id="top">
+      <canvas id="heroCanvas" class="hero-canvas"></canvas>
+      <svg class="leaders" id="leaders"></svg>
+      <div class="labels" id="labels"></div>
+      <div class="oven-glow" id="ovenGlow"></div>
+
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> Hand made · печь на дровах</p>
+        <h1>Пицца,<br />которую <em>Азим</em><br />делает руками</h1>
+        <div class="steps">
+          <div class="step" data-step="0">
+            <span class="step-num">01 / Анатомия</span>
+            <p>Восемь слоёв без фабрики: тесто, соус, моцарелла и начинка, нарезанная сегодня. Листайте вниз — пицца соберётся.</p>
+          </div>
+          <div class="step" data-step="1">
+            <span class="step-num">02 / Сборка</span>
+            <p>Тесто тянем ладонями, соус — ложкой по кругу, сыр — кубиками. Каждая пицца немного неровная. Так и задумано.</p>
+          </div>
+          <div class="step" data-step="2">
+            <span class="step-num">03 / Печь</span>
+            <p>≈ 3 минуты в печи на дровах. Кубики сыра тают, бортик пузырится и ловит подпалины.</p>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#builder">Собрать свою</a>
+          <a class="btn btn-ghost" href="#menu">Меню</a>
+        </div>
+      </div>
+
+      <div class="progress" aria-hidden="true"><span id="heroBar"></span></div>
+      <div class="hero-timer" id="heroTimer"><span>в печи</span><b>0:00</b></div>
+      <div class="scroll-hint" id="scrollHint">листайте ↓</div>
+    </div>
+  </section>
+
+  <!-- 2. СВЕЖЕСТЬ -->
+  <section id="fresh" class="section fresh">
+    <div class="section-head">
+      <p class="eyebrow">Свежесть по часам</p>
+      <h2>От замеса до вашей тарелки</h2>
+      <p class="lead">Мы не держим заготовки «на неделю». Вот как выглядит путь одной пиццы — по реальным фото с нашей кухни.</p>
+      <div class="live-clock" id="liveClock"></div>
+    </div>
+
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-time">−24 ч</div>
+        <div class="tl-card">
+          <img src="img/dough.jpg" alt="Шарики теста под плёнкой" loading="lazy" />
+          <div><h3>Замес и ферментация</h3><p>Делим тесто на шары, смазываем маслом и оставляем на 24 часа. За это время оно становится лёгким, с пузырями воздуха.</p></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">−3 ч</div>
+        <div class="tl-card">
+          <img src="img/sauce.jpg" alt="Томатный соус в кастрюле" loading="lazy" />
+          <div><h3>Соус</h3><p>Томаты, чеснок и орегано. Варим утром небольшой кастрюлей, ровно на день.</p></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">−1 ч</div>
+        <div class="tl-card tl-card--grid">
+          <div class="mini-grid">
+            <figure><img src="img/mozzarella.jpg" alt="Моцарелла кубиками" loading="lazy" /><figcaption>Моцарелла</figcaption></figure>
+            <figure><img src="img/ham.jpg" alt="Ветчина" loading="lazy" /><figcaption>Ветчина</figcaption></figure>
+            <figure><img src="img/red-onion.jpg" alt="Красный лук" loading="lazy" /><figcaption>Красный лук</figcaption></figure>
+            <figure><img src="img/olives.jpg" alt="Маслины и оливки" loading="lazy" /><figcaption>Оливки</figcaption></figure>
+            <figure><img src="img/jalapeno.jpg" alt="Халапеньо" loading="lazy" /><figcaption>Халапеньо</figcaption></figure>
+            <figure><img src="img/onion.jpg" alt="Репчатый лук" loading="lazy" /><figcaption>Лук</figcaption></figure>
+          </div>
+          <div><h3>Нарезка</h3><p>Всё режем ножом за час до открытия: сыр кубиками, лук кольцами, оливки — кружочками.</p></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">0 мин</div>
+        <div class="tl-card">
+          <img src="img/pizza-raw.jpg" alt="Собранная сырая пицца" loading="lazy" />
+          <div><h3>Сборка руками</h3><p>Растягиваем тесто на каменном столе и выкладываем начинку под ваш заказ.</p></div>
+        </div>
+      </li>
+      <li class="tl-item">
+        <div class="tl-time">+3 мин</div>
+        <div class="tl-card">
+          <img src="img/pizza-baked.jpg" alt="Готовая пицца из печи" loading="lazy" />
+          <div><h3>Из печи</h3><p>Пузыри на бортике, расплавленный сыр, лёгкий дымок. Лучше всего — в первые 15 минут.</p></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 3. МЕНЮ -->
+  <section id="menu" class="section">
+    <div class="section-head">
+      <p class="eyebrow">Меню</p>
+      <h2>Пиццы Азима</h2>
+      <p class="lead">Нажмите на любую, чтобы открыть её в 3D-конструкторе и что-нибудь поменять.</p>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+  <!-- 4. КОНСТРУКТОР -->
+  <section id="builder" class="section builder">
+    <div class="section-head">
+      <p class="eyebrow">3D-конструктор</p>
+      <h2>Соберите свою пиццу</h2>
+      <p class="lead">Добавляйте ингредиенты, и они падают на тесто. Пиццу можно крутить мышкой или пальцем. Нажмите «В печь», чтобы посмотреть, как она запечётся.</p>
+    </div>
+
+    <div class="builder-wrap">
+      <div class="stage-col">
+        <div class="stage" id="stage">
+          <canvas id="builderCanvas"></canvas>
+          <div class="stage-glow" id="stageGlow"></div>
+          <div class="stage-top">
+            <span class="chip" id="bakeState">Сырая · ждёт печь</span>
+            <button class="chip chip-btn" id="explodeBtn" type="button">Анатомия</button>
+          </div>
+          <div class="stage-bottom">
+            <div class="oven-ring" id="ovenRing">
+              <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="19" class="ring-bg"/><circle cx="22" cy="22" r="19" class="ring-fg" id="ringFg"/></svg>
+              <span id="ovenTime">3:00</span>
+            </div>
+            <button class="btn btn-fire" id="bakeBtn" type="button">🔥 В печь</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="ctrl-block">
+          <h3>Размер</h3>
+          <div class="sizes" id="sizes"></div>
+        </div>
+        <div class="ctrl-block">
+          <h3>Основа <span class="muted">включена</span></h3>
+          <div class="base-list" id="baseList"></div>
+        </div>
+        <div class="ctrl-block">
+          <h3>Ингредиенты <span class="muted">нажмите, чтобы добавить, ещё раз — двойная порция</span></h3>
+          <div class="toppings" id="toppings"></div>
+        </div>
+
+        <div class="summary">
+          <div class="sum-row">
+            <div><span class="muted">Вес</span><b id="sumWeight">—</b></div>
+            <div><span class="muted">В печи</span><b id="sumBake">—</b></div>
+            <div><span class="muted">Будет готова</span><b id="sumReady">—</b></div>
+          </div>
+          <div class="sum-total">
+            <div><span class="muted" id="sumName">Своя пицца</span><b id="sumPrice">—</b></div>
+            <button class="btn btn-primary" id="addCart" type="button">В корзину</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="logo"><span class="logo-mark">A</span><span>AZIM<b>PIZZA</b></span></div>
+    <p>Пиццу печёт Азим, руками и на дровах. Пишите в WhatsApp, всё готовим под заказ.</p>
+    <p class="muted small">© <span id="year"></span> Azim Pizza</p>
+  </footer>
+
+  <!-- Корзина -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head"><h3>Ваш заказ</h3><button class="icon-btn" id="cartClose" aria-label="Закрыть">✕</button></div>
+      <div class="cart-list" id="cartList"></div>
+      <div class="drawer-foot">
+        <div class="sum-total"><div><span class="muted">Итого · готово через <b id="cartTime">—</b></span><b id="cartTotal">0 ₸</b></div></div>
+        <a class="btn btn-primary btn-block" id="orderBtn" target="_blank" rel="noopener">Заказать в WhatsApp</a>
+      </div>
+    </div>
+  </aside>
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
